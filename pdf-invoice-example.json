@@ -1,0 +1,10 @@
+{
+  "name": "PDF Invoice - Example",
+  "description": "Insert sensitive data into a PDF with a Reactor",
+  "type": "private",
+  "code": "module.exports = async function (req) {\n  const { PDFDocument } = require('pdf-lib');\n\n  const { account_number, user, invoice } = req.args;\n\n  const pdf = await PDFDocument.load(Buffer.from(invoice, 'base64'));\n  const pages = pdf.getPages();\n  const page = pages[0];\n\n  // draw account number\n  page.drawText(account_number, {\n    x: 135,\n    y: 478,\n    size: 10\n  });\n\n  // draw name - bill to\n  page.drawText(`${user.first_name} ${user.last_name}`, {\n    x: 92,\n    y: 548,\n    size: 10\n  });\n\n  // draw name - ship to\n  page.drawText(`${user.first_name} ${user.last_name}`, {\n    x: 300,\n    y: 548,\n    size: 10\n  });\n\n  // draw address line 1 - bill to\n  page.drawText(user.address_line1, {\n    x: 92,\n    y: 528,\n    size: 10\n  });\n\n  // draw address line 1 - ship to\n  page.drawText(user.address_line1, {\n    x: 300,\n    y: 528,\n    size: 10\n  });\n\n  // draw city, state, zip - bill to\n  page.drawText(`${user.city}, ${user.state} ${user.zip}`, {\n    x: 92,\n    y: 508,\n    size: 10\n  });\n\n  // draw city, state, zip - ship to\n  page.drawText(`${user.city}, ${user.state} ${user.zip}`, {\n    x: 300,\n    y: 508,\n    size: 10\n  });\n\n  const pdfBytes = await pdf.save();\n\n  return {\n    raw: {\n      invoice: pdfBytes\n    }\n  }\n}",
+  "configuration": [
+  ],
+  "request_parameters": [
+  ]
+}

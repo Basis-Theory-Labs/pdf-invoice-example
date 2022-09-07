@@ -1,0 +1,7 @@
+{
+  "name": "experiments",
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "pdfkit": "^0.13.0"
+  }
+}
