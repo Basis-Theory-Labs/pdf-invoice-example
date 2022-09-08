@@ -1,6 +1,7 @@
 {
   "name": "experiments",
   "dependencies": {
+    "@basis-theory/basis-theory-js": "^1.49.1",
     "pdf-lib": "^1.17.1",
     "pdfkit": "^0.13.0"
   }
